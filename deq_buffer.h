@@ -12,7 +12,7 @@ class DeqBuffer {
 public:
     DeqBuffer() = delete;
 
-    DeqBuffer(uint16_t size_) {
+    DeqBuffer(uint32_t size_) {
         max_size_ = size_;
     }
 
@@ -30,11 +30,11 @@ public:
         return buf_.size() == 0;
     }
 
-    uint16_t bufCurSize() {
+    uint32_t bufCurSize() {
         return cur_size_;
     }
 
-    void resizeBuf(uint16_t new_size) {
+    void resizeBuf(uint32_t new_size) {
         if(new_size < 0){
             std::cerr << "New size is to small" << std::endl;
             return;
@@ -79,7 +79,7 @@ public:
         }
     }
 
-    const Type getFrame(uint16_t index) {
+    const Type getFrame(uint32_t index) {
         if(index >= cur_size_ || index < 0) {
             throw std::out_of_range("Out of range: incorrect index");
         }
@@ -89,7 +89,7 @@ public:
         return buf_.at(index);
     }
 
-     const std::vector<Type> getFrameRange(uint16_t start_index, uint16_t end_index) {
+     const std::vector<Type> getFrameRange(uint32_t start_index, uint32_t end_index) {
         std::vector<Type> out_range;
         if(start_index < 0 || start_index >= max_size_ || end_index < start_index || end_index >= max_size_) {
             throw std::out_of_range("Incorrect range");
@@ -100,6 +100,6 @@ public:
 
 private:
     std::deque<Type> buf_{};
-    uint16_t max_size_ = 0;
-    uint16_t cur_size_  = 0;
+    uint32_t max_size_ = 0;
+    uint32_t cur_size_  = 0;
 };
